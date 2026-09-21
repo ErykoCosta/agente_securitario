@@ -45,29 +45,38 @@ class Provedor(str, Enum):
     GEMINI    = "Google Gemini"
 
 
-# Modelos disponíveis por provedor — exibidos na UI exatamente nessa ordem
+# Modelos disponíveis por provedor — atualizados em Set/2026 com IDs oficiais
+# Fontes:
+#   Anthropic: platform.claude.com/docs/en/models/overview
+#   OpenAI:    platform.openai.com/docs/models
+#   Gemini:    ai.google.dev/gemini-api/docs/models
 MODELOS_DISPONIVEIS: dict[str, list[dict]] = {
     Provedor.ANTHROPIC: [
-        {"id": "claude-3-5-sonnet-latest", "label": "Claude 3.5 Sonnet (recomendado)"},
-        {"id": "claude-3-5-haiku-latest",  "label": "Claude 3.5 Haiku (rápido)"},
-        {"id": "claude-opus-4-5",          "label": "Claude Opus 4.5 (mais capaz)"},
-        {"id": "claude-3-opus-latest",     "label": "Claude 3 Opus"},
+        {"id": "claude-sonnet-5",              "label": "Claude Sonnet 5 (recomendado) — Set/2026"},
+        {"id": "claude-fable-5-1",             "label": "Claude Fable 5.1 — raciocínio avançado"},
+        {"id": "claude-opus-5",                "label": "Claude Opus 5 — máxima capacidade"},
+        {"id": "claude-haiku-4-5-20251001",    "label": "Claude Haiku 4.5 — rápido e econômico"},
+        {"id": "claude-3-5-sonnet-latest",     "label": "Claude 3.5 Sonnet (legado)"},
     ],
     Provedor.OPENAI: [
-        {"id": "gpt-4o",       "label": "GPT-4o (recomendado)"},
-        {"id": "gpt-4o-mini",  "label": "GPT-4o Mini (rápido)"},
-        {"id": "o3-mini",      "label": "o3-mini (raciocínio)"},
-        {"id": "o1",           "label": "o1 (raciocínio avançado)"},
-        {"id": "gpt-4-turbo",  "label": "GPT-4 Turbo"},
+        {"id": "gpt-5.6-terra",    "label": "GPT-5.6 Terra (recomendado) — inteligência/custo"},
+        {"id": "gpt-6-astra",      "label": "GPT-6 Astra — máxima capacidade"},
+        {"id": "gpt-5.6-sol",      "label": "GPT-5.6 Sol — trabalho profissional avançado"},
+        {"id": "gpt-5.6-luna",     "label": "GPT-5.6 Luna — alto volume / baixo custo"},
+        {"id": "gpt-5.4",          "label": "GPT-5.4 — codificação e trabalho profissional"},
+        {"id": "gpt-5.1",          "label": "GPT-5.1 — melhor para coding e tarefas agênticas"},
+        {"id": "gpt-4o",           "label": "GPT-4o (legado estável)"},
     ],
     Provedor.GEMINI: [
-        {"id": "gemini-2.5-pro-preview-06-05", "label": "Gemini 2.5 Pro (recomendado)"},
-        {"id": "gemini-2.0-flash",             "label": "Gemini 2.0 Flash (rápido)"},
-        {"id": "gemini-2.0-flash-lite",        "label": "Gemini 2.0 Flash Lite"},
-        {"id": "gemini-1.5-pro-latest",        "label": "Gemini 1.5 Pro"},
-        {"id": "gemini-1.5-flash-latest",      "label": "Gemini 1.5 Flash"},
+        {"id": "gemini-3.8-flash",                    "label": "Gemini 3.8 Flash (recomendado) — Set/2026"},
+        {"id": "gemini-3.8-live",                     "label": "Gemini 3.8 Live — conversacional"},
+        {"id": "gemini-3.8-live-extended-thinking",   "label": "Gemini 3.8 Live Extended Thinking"},
+        {"id": "gemini-2.5-pro-preview-06-05",        "label": "Gemini 2.5 Pro (legado)"},
+        {"id": "gemini-2.5-flash",                    "label": "Gemini 2.5 Flash (legado)"},
+        {"id": "gemini-2.0-flash",                    "label": "Gemini 2.0 Flash (legado)"},
     ],
 }
+
 
 # Modelos que usam "reasoning" na OpenAI (não aceitam temperature)
 OPENAI_REASONING_MODELS = {"o1", "o1-mini", "o3", "o3-mini", "o1-preview"}

@@ -335,7 +335,7 @@ def init_session():
         "agente": None,
         "api_key_validada": False,
         "provedor_selecionado": "Anthropic Claude",
-        "modelo_selecionado": "claude-3-5-sonnet-latest",
+        "modelo_selecionado": "claude-sonnet-5",
         "texto_documentos": "",
         "resumos_documentos": [],
         "dados_extraidos": {},
