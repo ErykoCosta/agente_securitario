@@ -1,0 +1,122 @@
+{
+  "sumulas_securitarias_stj": [
+    {
+      "numero": 609,
+      "tribunal": "STJ",
+      "data_publicacao": "2018-02-28",
+      "enunciado": "A recusa de cobertura securitária, sob a alegação de doença preexistente, é ilícita se a seguradora não submeteu o segurado a prévio exame médico.",
+      "aplicacao_tipica": "doenca_preexistente",
+      "ramos": ["Vida/AP", "Prestamista", "Habitacional"],
+      "validada": true,
+      "observacoes": "Aprovada na Primeira Seção do STJ."
+    },
+    {
+      "numero": 616,
+      "tribunal": "STJ",
+      "data_publicacao": "2018-05-14",
+      "enunciado": "A indenização securitária decorrente do descumprimento do contrato de seguro inclui juros de mora desde o evento danoso.",
+      "aplicacao_tipica": "mora_juros",
+      "ramos": ["Vida/AP", "Prestamista", "Auto", "Habitacional"],
+      "validada": true,
+      "observacoes": "Consolidada na Segunda Seção."
+    },
+    {
+      "numero": 620,
+      "tribunal": "STJ",
+      "data_publicacao": "2018-05-14",
+      "enunciado": "A embriaguez do segurado não exime a seguradora do pagamento da indenização prevista em contrato de seguro de vida.",
+      "aplicacao_tipica": "embriaguez_seguro_vida",
+      "ramos": ["Vida/AP"],
+      "validada": true,
+      "observacoes": "Aplicável a seguros de pessoas. No seguro de dano (auto) a análise é distinta."
+    },
+    {
+      "numero": 610,
+      "tribunal": "STJ",
+      "data_publicacao": "2018-05-14",
+      "enunciado": "O suicídio não é coberto nos dois primeiros anos de vigência do contrato de seguro de vida, ressalvada a hipótese de premeditação do segurado.",
+      "aplicacao_tipica": "suicidio",
+      "ramos": ["Vida/AP"],
+      "validada": true,
+      "observacoes": "Após 2 anos de vigência, o suicídio é coberto como risco normal. Ônus da prova da premeditação é da seguradora."
+    },
+    {
+      "numero": 402,
+      "tribunal": "STJ",
+      "data_publicacao": "2009-10-14",
+      "enunciado": "O contrato de seguro por si só não dá direito à indenização por dano moral. O descumprimento imotivado ou abusivo gera o dano moral indenizável.",
+      "aplicacao_tipica": "danos_morais",
+      "ramos": ["Vida/AP", "Prestamista", "Auto", "Habitacional", "Residencial/Empresarial"],
+      "validada": true,
+      "observacoes": "Negativa infundada, mora excessiva ou recusa com alegação genérica configura dano moral autônomo."
+    },
+    {
+      "numero": 465,
+      "tribunal": "STJ",
+      "data_publicacao": "2011-02-16",
+      "enunciado": "Ressalvada a hipótese de efetivo prejuízo, não há motivo para a seguradora negar-se a pagar indenização de seguro, quando o veículo foi transferido sem sua anuência.",
+      "aplicacao_tipica": "transferencia_veiculo",
+      "ramos": ["Auto"],
+      "validada": true,
+      "observacoes": "A seguradora deve comprovar o efetivo prejuízo causado pela transferência."
+    },
+    {
+      "numero": 632,
+      "tribunal": "STJ",
+      "data_publicacao": "2019-06-24",
+      "enunciado": "A correção monetária do valor da indenização do dano à saúde, compreendido tanto o dano estético quanto o moral, deverá incidir desde a data do arbitramento.",
+      "aplicacao_tipica": "correcao_monetaria",
+      "ramos": ["Vida/AP", "Prestamista", "Habitacional", "Auto"],
+      "validada": true,
+      "observacoes": "Para fins securitários: aplicar correção desde o evento/contratação conforme tabela SUSEP."
+    },
+    {
+      "numero": 229,
+      "tribunal": "STJ",
+      "data_publicacao": "2000-11-08",
+      "enunciado": "O pedido de indenização ao segurador suspende o prazo de prescrição.",
+      "aplicacao_tipica": "suspensao_prescricao",
+      "ramos": ["Vida/AP", "Prestamista", "Auto", "Habitacional", "DPVAT/SPVAT"],
+      "validada": true,
+      "observacoes": "Qualquer protocolo administrativo junto à seguradora suspende o prazo prescricional."
+    },
+    {
+      "numero": 278,
+      "tribunal": "STJ",
+      "data_publicacao": "2003-10-22",
+      "enunciado": "O prazo de prescrição, na ação de indenização, é contado da data em que o segurado teve ciência inequívoca da incapacidade laboral.",
+      "aplicacao_tipica": "inicio_prescricao_invalidez",
+      "ramos": ["Vida/AP", "Prestamista"],
+      "validada": true,
+      "observacoes": "O dies a quo não é a data do acidente, mas a data da ciência da invalidez."
+    },
+    {
+      "numero": 101,
+      "tribunal": "STJ",
+      "data_publicacao": "1994-06-14",
+      "enunciado": "A ação de indenização do segurado em grupo contra o segurador prescreve em um ano.",
+      "aplicacao_tipica": "prescricao_seguro_grupo",
+      "ramos": ["Prestamista", "Vida/AP"],
+      "validada": true,
+      "observacoes": "Aplicável a seguros de grupo (ex: prestamista, vida em grupo de RH)."
+    },
+    {
+      "numero": 405,
+      "tribunal": "STJ",
+      "data_publicacao": "2009-10-28",
+      "enunciado": "A ação de cobrança do seguro obrigatório (DPVAT) prescreve em três anos.",
+      "aplicacao_tipica": "prescricao_dpvat",
+      "ramos": ["DPVAT/SPVAT"],
+      "validada": true,
+      "observacoes": "Prazo especial de 3 anos, distinto do prazo geral de 1 ano dos demais seguros."
+    }
+  ],
+  "avisos": [
+    "Este catálogo contém apenas as súmulas validadas pelo escritório.",
+    "Não citar outras súmulas sem verificação prévia da autenticidade.",
+    "Para julgados de tribunais de justiça, sempre usar marcação [CONFERIR].",
+    "A Lei 15.040/2024 (Marco Legal dos Seguros) pode criar entendimentos supervenientes a estas súmulas."
+  ],
+  "ultima_atualizacao": "2024-01-01",
+  "responsavel_validacao": "Escritório Dra. Salviana Lima da Silva - OAB/SP 519.390"
+}

@@ -1,0 +1,100 @@
+{
+  "vida_ap": {
+    "ramo": "Vida / Acidentes Pessoais",
+    "sumulas_aplicaveis": ["STJ-609", "STJ-610", "STJ-620", "STJ-402", "STJ-616", "STJ-632", "STJ-229", "STJ-278"],
+    "prazo_prescricional_anos": 1,
+    "teses_principais": [
+      {
+        "id": "vida_preexistencia",
+        "titulo": "Doença Preexistente sem Exame Médico",
+        "descricao": "Negativa por preexistência sem exame médico prévio viola Súmula 609, STJ.",
+        "sumulas": ["STJ-609"],
+        "fundamentacao_legal": ["CC art. 422", "CDC art. 46", "CDC art. 47"]
+      },
+      {
+        "id": "vida_suicidio",
+        "titulo": "Suicídio após 2 anos de vigência",
+        "descricao": "Suicídio após 2 anos é risco coberto. Ônus da prova da premeditação é da seguradora.",
+        "sumulas": ["STJ-610"],
+        "fundamentacao_legal": ["CC art. 798"]
+      },
+      {
+        "id": "vida_embriaguez",
+        "titulo": "Embriaguez — Seguro de Pessoas",
+        "descricao": "Embriaguez não exime seguradora em seguro de vida sem nexo causal comprovado.",
+        "sumulas": ["STJ-620"],
+        "fundamentacao_legal": []
+      },
+      {
+        "id": "vida_invalidez_funcional",
+        "titulo": "Invalidez Funcional vs. Laboral",
+        "descricao": "Seguradora não pode exigir incapacidade total para toda atividade; deve considerar a profissão habitual.",
+        "sumulas": ["STJ-278"],
+        "fundamentacao_legal": ["CDC art. 54 par.4"]
+      }
+    ]
+  },
+  "prestamista": {
+    "ramo": "Seguro Prestamista",
+    "sumulas_aplicaveis": ["STJ-609", "STJ-402", "STJ-616", "STJ-229", "STJ-278", "STJ-101"],
+    "prazo_prescricional_anos": 1,
+    "teses_principais": [
+      {
+        "id": "prest_parcelas_descontadas",
+        "titulo": "Parcelas Descontadas Após o Sinistro",
+        "descricao": "Banco/estipulante que continua descontando parcelas após sinistro gera direito à repetição de indébito.",
+        "sumulas": [],
+        "fundamentacao_legal": ["CDC art. 42 par.unico", "CC art. 876"]
+      },
+      {
+        "id": "prest_legitimidade_ativa",
+        "titulo": "Legitimidade Ativa do Segurado",
+        "descricao": "O segurado/beneficiário tem ação direta contra a seguradora, mesmo sendo o banco o tomador/estipulante.",
+        "sumulas": [],
+        "fundamentacao_legal": ["CDC art. 2", "CC art. 757"]
+      }
+    ]
+  },
+  "habitacional": {
+    "ramo": "Seguro Habitacional (SFH/SFI)",
+    "sumulas_aplicaveis": ["STJ-609", "STJ-402", "STJ-616", "STJ-229"],
+    "prazo_prescricional_anos": 1,
+    "teses_principais": [
+      {
+        "id": "hab_mip_morte_invalidez",
+        "titulo": "MIP — Morte e Invalidez Permanente",
+        "descricao": "Cobertura MIP deve quitar o saldo devedor integralmente na data do sinistro.",
+        "sumulas": ["STJ-609"],
+        "fundamentacao_legal": ["Lei 4.380/64", "Resolução CNSP 341/2016"]
+      },
+      {
+        "id": "hab_dfi_danos_fisicos",
+        "titulo": "DFI — Danos Físicos ao Imóvel",
+        "descricao": "Cobertura DFI abrange danos físicos estruturais, vícios construtivos e incêndio.",
+        "sumulas": [],
+        "fundamentacao_legal": ["Resolução CNSP 341/2016"]
+      }
+    ]
+  },
+  "dpvat": {
+    "ramo": "DPVAT / SPVAT",
+    "sumulas_aplicaveis": ["STJ-405", "STJ-229"],
+    "prazo_prescricional_anos": 3,
+    "teses_principais": [
+      {
+        "id": "dpvat_prescricao",
+        "titulo": "Prescrição Trienal do DPVAT",
+        "descricao": "A prescrição do DPVAT é de 3 anos a contar do sinistro (Súmula 405, STJ).",
+        "sumulas": ["STJ-405"],
+        "fundamentacao_legal": ["Lei 6.194/74"]
+      },
+      {
+        "id": "dpvat_tabela_invalidez",
+        "titulo": "Tabela de Invalidez DPVAT",
+        "descricao": "O valor deve ser calculado pelo percentual da tabela DPVAT sobre R$ 13.500 (valor base legal).",
+        "sumulas": [],
+        "fundamentacao_legal": ["Lei 6.194/74 art. 3", "Tabela DPVAT SENATRAN"]
+      }
+    ]
+  }
+}
