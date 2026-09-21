@@ -1259,8 +1259,9 @@ def main():
     # AUTENTICAÇÃO
     # -----------------------------------------------------------------------
     try:
-        credentials = dict(st.secrets["credentials"])
-        cookie = dict(st.secrets["cookie"])
+        secrets_dict = st.secrets.to_dict()
+        credentials = secrets_dict["credentials"]
+        cookie = secrets_dict["cookie"]
         authenticator = stauth.Authenticate(
             credentials,
             cookie["name"],
