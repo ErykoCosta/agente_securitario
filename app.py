@@ -28,7 +28,7 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Agente Jurídico Securitário | Dra. Salviana Lima",
-    page_icon="⚖️",
+    page_icon="assets/favicon.jpg",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
