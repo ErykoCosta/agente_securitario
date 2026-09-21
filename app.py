@@ -17,6 +17,7 @@ from datetime import date, datetime
 from typing import Optional
 
 import streamlit as st
+import streamlit_authenticator as stauth
 from dotenv import load_dotenv
 
 # Carrega variáveis de ambiente do .env (se existir)
@@ -493,27 +494,41 @@ def renderizar_sidebar():
         # ── CHAVE API ───────────────────────────────────────────────────
         st.markdown("### 🔑 Chave de API")
 
-        api_key_env = os.getenv(info["env_key"], "")
+        # Verifica se há chave padrão nos secrets
+        api_key_secret = ""
+        try:
+            if provedor_escolhido == "Anthropic Claude":
+                api_key_secret = st.secrets["api_keys"].get("anthropic", "")
+            elif provedor_escolhido == "OpenAI":
+                api_key_secret = st.secrets["api_keys"].get("openai", "")
+            elif provedor_escolhido == "Google Gemini":
+                api_key_secret = st.secrets["api_keys"].get("gemini", "")
+        except FileNotFoundError:
+            pass # Sem secrets local
+
+        api_key_env = os.getenv(info["env_key"], api_key_secret)
+        
         api_key_input = st.text_input(
-            f"Chave {provedor_escolhido}",
-            value=api_key_env,
+            f"Chave {provedor_escolhido} (Opcional)",
+            value="",
             type="password",
-            placeholder=info["placeholder_key"],
+            placeholder=info["placeholder_key"] if not api_key_env else "Usando chave padrão do sistema",
             key="api_key_input",
             help=(
-                f"Insira a chave de API do {provedor_escolhido}. "
-                "Ela é usada apenas nesta sessão e não é salva em disco."
+                f"Deixe em branco para usar a chave do escritório. "
+                f"Se quiser usar a sua, insira a chave do {provedor_escolhido}."
             ),
         )
 
         if st.button("🔗 Conectar", use_container_width=True):
-            if not api_key_input or len(api_key_input.strip()) < 8:
-                st.warning("Insira uma chave de API válida antes de conectar.")
+            chave_final = api_key_input.strip() if api_key_input.strip() else api_key_env
+            if not chave_final or len(chave_final) < 8:
+                st.warning("Nenhuma chave válida encontrada. Insira sua chave ou configure no sistema.")
             else:
                 with st.spinner(f"Conectando ao {provedor_escolhido}…"):
                     try:
                         agente = criar_agente(
-                            api_key=api_key_input.strip(),
+                            api_key=chave_final,
                             modelo=modelo_escolhido,
                             provedor=provedor_escolhido,
                         )
@@ -535,7 +550,7 @@ def renderizar_sidebar():
             modelo_badge   = agente_atual.modelo   if agente_atual else ""
             st.success(f"✅ Conectado · {provedor_badge} · {modelo_badge}")
         else:
-            st.info("ℹ️ Selecione o provedor, o modelo e cole a chave API.")
+            st.info("ℹ️ Selecione o provedor, o modelo e conecte.")
 
         st.divider()
 
@@ -1239,6 +1254,37 @@ def main():
             "Execute: `pip install -r requirements.txt`"
         )
         st.stop()
+
+    # -----------------------------------------------------------------------
+    # AUTENTICAÇÃO
+    # -----------------------------------------------------------------------
+    try:
+        credentials = dict(st.secrets["credentials"])
+        cookie = dict(st.secrets["cookie"])
+        authenticator = stauth.Authenticate(
+            credentials,
+            cookie["name"],
+            cookie["key"],
+            cookie["expiry_days"]
+        )
+    except FileNotFoundError:
+        st.error("Arquivo secrets.toml não encontrado. Configure as credenciais.")
+        st.stop()
+
+    authenticator.login()
+
+    if st.session_state["authentication_status"] is False:
+        st.error("Usuário ou senha incorretos")
+        st.stop()
+    elif st.session_state["authentication_status"] is None:
+        st.warning("Por favor, insira usuário e senha")
+        st.stop()
+
+    # Se logado, renderiza o botão de logout na sidebar
+    with st.sidebar:
+        st.markdown(f"Bem-vindo(a) **{st.session_state['name']}**")
+        authenticator.logout("Sair", "sidebar")
+        st.divider()
 
     renderizar_sidebar()
 

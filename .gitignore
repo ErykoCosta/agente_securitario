@@ -14,6 +14,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+.streamlit/secrets.toml
 
 # Node / JS (caso aplicável)
 node_modules/
