@@ -24,10 +24,14 @@ except ImportError:
     HAS_PDFPLUMBER = False
 
 try:
-    import fitz  # pymupdf
+    import pymupdf as fitz
     HAS_PYMUPDF = True
 except ImportError:
-    HAS_PYMUPDF = False
+    try:
+        import fitz
+        HAS_PYMUPDF = True
+    except ImportError:
+        HAS_PYMUPDF = False
 
 try:
     from pypdf import PdfReader

@@ -52,28 +52,35 @@ class Provedor(str, Enum):
 #   Gemini:    ai.google.dev/gemini-api/docs/models
 MODELOS_DISPONIVEIS: dict[str, list[dict]] = {
     Provedor.ANTHROPIC: [
-        {"id": "claude-sonnet-5",              "label": "Claude Sonnet 5 (recomendado) — Set/2026"},
-        {"id": "claude-fable-5-1",             "label": "Claude Fable 5.1 — raciocínio avançado"},
-        {"id": "claude-opus-5",                "label": "Claude Opus 5 — máxima capacidade"},
-        {"id": "claude-haiku-4-5-20251001",    "label": "Claude Haiku 4.5 — rápido e econômico"},
-        {"id": "claude-3-5-sonnet-latest",     "label": "Claude 3.5 Sonnet (legado)"},
+        {"id": "claude-sonnet-5-5",            "label": "Claude Sonnet 5.5 (recomendado) — Flagship Agêntico"},
+        {"id": "claude-sonnet-5",              "label": "Claude Sonnet 5 — Alto desempenho"},
+        {"id": "claude-3-7-sonnet-latest",     "label": "Claude 3.7 Sonnet — Raciocínio Híbrido avançado"},
+        {"id": "claude-fable-5-1",             "label": "Claude Fable 5.1 — Raciocínio avançado"},
+        {"id": "claude-opus-5",                "label": "Claude Opus 5 — Máxima capacidade"},
+        {"id": "claude-haiku-4-5-20251001",    "label": "Claude Haiku 4.5 — Rápido e econômico"},
+        {"id": "claude-3-5-sonnet-latest",     "label": "Claude 3.5 Sonnet (estável legado)"},
+        {"id": "claude-3-5-haiku-latest",      "label": "Claude 3.5 Haiku (econômico legado)"},
     ],
     Provedor.OPENAI: [
-        {"id": "gpt-5.6-terra",    "label": "GPT-5.6 Terra (recomendado) — inteligência/custo"},
-        {"id": "gpt-6-astra",      "label": "GPT-6 Astra — máxima capacidade"},
-        {"id": "gpt-5.6-sol",      "label": "GPT-5.6 Sol — trabalho profissional avançado"},
-        {"id": "gpt-5.6-luna",     "label": "GPT-5.6 Luna — alto volume / baixo custo"},
-        {"id": "gpt-5.4",          "label": "GPT-5.4 — codificação e trabalho profissional"},
-        {"id": "gpt-5.1",          "label": "GPT-5.1 — melhor para coding e tarefas agênticas"},
-        {"id": "gpt-4o",           "label": "GPT-4o (legado estável)"},
+        {"id": "gpt-5.6-terra",    "label": "GPT-5.6 Terra (recomendado) — Inteligência/Custo equilibrado"},
+        {"id": "gpt-6-astra",      "label": "GPT-6 Astra — Máxima capacidade de fronteira"},
+        {"id": "gpt-5.6-sol",      "label": "GPT-5.6 Sol — Trabalho profissional avançado"},
+        {"id": "gpt-5.6-luna",     "label": "GPT-5.6 Luna — Alto volume / Baixo custo"},
+        {"id": "o3-mini",          "label": "o3-mini — Raciocínio e lógica jurídica avançada"},
+        {"id": "o1",               "label": "o1 — Raciocínio profundo complexo"},
+        {"id": "gpt-5.4",          "label": "GPT-5.4 — Codificação e trabalho profissional"},
+        {"id": "gpt-5.1",          "label": "GPT-5.1 — Tarefas agênticas"},
+        {"id": "gpt-4o",           "label": "GPT-4o (estável legado)"},
+        {"id": "gpt-4o-mini",      "label": "GPT-4o Mini (econômico legado)"},
     ],
     Provedor.GEMINI: [
-        {"id": "gemini-3.8-flash",                    "label": "Gemini 3.8 Flash (recomendado) — Set/2026"},
-        {"id": "gemini-3.8-live",                     "label": "Gemini 3.8 Live — conversacional"},
-        {"id": "gemini-3.8-live-extended-thinking",   "label": "Gemini 3.8 Live Extended Thinking"},
-        {"id": "gemini-2.5-pro-preview-06-05",        "label": "Gemini 2.5 Pro (legado)"},
-        {"id": "gemini-2.5-flash",                    "label": "Gemini 2.5 Flash (legado)"},
-        {"id": "gemini-2.0-flash",                    "label": "Gemini 2.0 Flash (legado)"},
+        {"id": "gemini-3.8-flash",          "label": "Gemini 3.8 Flash (recomendado) — Agêntico e contexto 1M"},
+        {"id": "gemini-3.1-pro-preview",    "label": "Gemini 3.1 Pro — Máxima inteligência e síntese jurídica"},
+        {"id": "gemini-3.5-flash",          "label": "Gemini 3.5 Flash — Rápido e balanceado"},
+        {"id": "gemini-3.5-flash-lite",     "label": "Gemini 3.5 Flash-Lite — Ultrarrápido e econômico"},
+        {"id": "gemini-2.5-pro",            "label": "Gemini 2.5 Pro (estável legado)"},
+        {"id": "gemini-2.5-flash",          "label": "Gemini 2.5 Flash (legado)"},
+        {"id": "gemini-2.0-flash",          "label": "Gemini 2.0 Flash (legado)"},
     ],
 }
 
@@ -148,7 +155,10 @@ class _OpenAIAdapter:
         self._ConnError = APIConnectionError
         self.cliente = _OpenAI(api_key=api_key)
         self.modelo = modelo
-        self._is_reasoning = modelo in OPENAI_REASONING_MODELS
+        self._is_reasoning = (
+            modelo in OPENAI_REASONING_MODELS
+            or modelo.startswith(("o1", "o3", "o4"))
+        )
 
     def _build_messages(self, system: str, mensagens: list[dict]) -> list[dict]:
         """Converte formato Anthropic para formato OpenAI."""
@@ -191,11 +201,16 @@ class _OpenAIAdapter:
 
     def testar(self) -> tuple[bool, str]:
         try:
-            self.cliente.chat.completions.create(
-                model=self.modelo,
-                max_tokens=10,
-                messages=[{"role": "user", "content": "OK"}],
-            )
+            kwargs = {
+                "model": self.modelo,
+                "messages": [{"role": "user", "content": "OK"}],
+            }
+            if self._is_reasoning:
+                kwargs["max_completion_tokens"] = 10
+            else:
+                kwargs["max_tokens"] = 10
+
+            self.cliente.chat.completions.create(**kwargs)
             return True, f"✅ OpenAI — {self.modelo}"
         except self._AuthError:
             return False, "❌ Chave OpenAI inválida ou expirada."
