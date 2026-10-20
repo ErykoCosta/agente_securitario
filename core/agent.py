@@ -103,30 +103,44 @@ class _AnthropicAdapter:
     """Adaptador para a API Anthropic (Claude)."""
 
     def __init__(self, api_key: str, modelo: str):
+        import inspect
         import anthropic as _anthropic
         self._anthropic = _anthropic
         self.cliente = _anthropic.Anthropic(api_key=api_key)
         self.modelo = modelo
+        # SDKs/modelos novos removeram 'temperature' de messages.create()
+        try:
+            params = inspect.signature(self.cliente.messages.create).parameters
+            self._aceita_temperature = (
+                "temperature" in params
+                or any(p.kind == inspect.Parameter.VAR_KEYWORD for p in params.values())
+            )
+        except (TypeError, ValueError):
+            self._aceita_temperature = False
+
+    def _kwargs(self, system: str, mensagens: list[dict],
+                max_tokens: int, temperatura: float) -> dict:
+        kwargs: dict = dict(
+            model=self.modelo,
+            max_tokens=max_tokens,
+            system=system,
+            messages=mensagens,
+        )
+        if self._aceita_temperature:
+            kwargs["temperature"] = temperatura
+        return kwargs
 
     def chamar(self, system: str, mensagens: list[dict],
                max_tokens: int, temperatura: float) -> str:
         resp = self.cliente.messages.create(
-            model=self.modelo,
-            max_tokens=max_tokens,
-            temperature=temperatura,
-            system=system,
-            messages=mensagens,
+            **self._kwargs(system, mensagens, max_tokens, temperatura)
         )
-        return resp.content[0].text
+        return "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
 
     def stream(self, system: str, mensagens: list[dict],
                max_tokens: int, temperatura: float) -> Generator[str, None, None]:
         with self.cliente.messages.stream(
-            model=self.modelo,
-            max_tokens=max_tokens,
-            temperature=temperatura,
-            system=system,
-            messages=mensagens,
+            **self._kwargs(system, mensagens, max_tokens, temperatura)
         ) as s:
             yield from s.text_stream
 
